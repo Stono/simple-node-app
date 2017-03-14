@@ -19,9 +19,11 @@
     "node": ">= 7.0.0"
   },
   "scripts": {
-    "test": "./node_modules/grunt/bin/grunt mochaTest",
     "start": "./node_modules/http-server/bin/http-server ./html",
-    "build": "docker build -t eu.gcr.io/$GCP_PROJECT_NAME/simple-web-app:$GO_PIPELINE_COUNTER ."
+    "build": "docker build -t eu.gcr.io/$GCP_PROJECT_NAME/simple-web-app:$GO_PIPELINE_COUNTER .",
+    "test": "docker run --rm eu.gcr.io/$GCP_PROJECT_NAME/simple-web-app:$GO_PIPELINE_COUNTER npm run test",
+    "push": "gcloud docker push eu.gcr.io/$GCP_PROJECT_NAME/simple-web-app:$GO_PIPELINE_COUNTER",
+    "push": "gcloud docker pull eu.gcr.io/$GCP_PROJECT_NAME/simple-web-app:$GO_PIPELINE_COUNTER"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
