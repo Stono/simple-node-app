@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-node-app-service
+  namespace: hs
+  labels:
+    app: simple-node-app-service
+spec:
+  type: LoadBalancer
+  loadBalancerIP: {{ENV.GCP_STATIC_IP}}
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8081
+  selector:
+    app: simple-node-app

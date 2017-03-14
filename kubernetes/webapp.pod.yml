@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: simple-node-app
+  namespace: hs
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  minReadySeconds: 20
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: simple-node-app
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+      - name: master
+        image: eu.gcr.io/{{ENV.GCP_PROJECT_NAME}}/simple-node-app:{{ENV.GO_PIPELINE_COUNTER}}
+        ports:
+        - name: http
+          containerPort: 8081
